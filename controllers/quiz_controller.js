@@ -278,6 +278,7 @@ exports.check = function (req, res, next) {
 
             req.session.index = req.session.index.concat(quiz.id);
             console.log(req.session.index);
+            req.session.checkit = false;
             res.render("random_play",{
             score: req.session.score,
             quiz: quiz }
@@ -290,7 +291,11 @@ exports.check = function (req, res, next) {
 
 exports.randomcheck = function(req, res, next){
     var answer = req.query.answer || "";
-    var score = req.session.score;
+    var score = req.session.score || 0;
+
+    if(req.session.checkit){
+        var score = req.session.score = 0;
+    }
 
     var result = answer.toLowerCase().trim() === req.quiz.answer.toLowerCase().trim();
 
