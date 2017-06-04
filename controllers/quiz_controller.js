@@ -290,12 +290,13 @@ exports.check = function (req, res, next) {
 };
 
 exports.randomcheck = function(req, res, next){
+    
+    if(req.session.checkit || isNaN(req.session.score) ){
+        req.session.score = 0;
+        req.session.index =[req.quiz.id];
+    }
     var answer = req.query.answer || "";
     var score = req.session.score || 0;
-
-    if(req.session.checkit){
-        var score = req.session.score = 0;
-    }
 
     var result = answer.toLowerCase().trim() === req.quiz.answer.toLowerCase().trim();
 

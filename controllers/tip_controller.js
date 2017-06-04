@@ -42,12 +42,18 @@ exports.new = function (req, res, next) {
 exports.create = function (req, res, next) {
 
     var authorId = req.session.user && req.session.user.id || 0;
+    var accepted = false;
+
+    if(req.quiz.AuthorId === authorId){
+        accepted = true;
+    }
 
     var tip = models.Tip.build(
         {
             text: req.body.text,
             QuizId: req.quiz.id,
-            AuthorId: authorId
+            AuthorId: authorId,
+            accepted: accepted
         });
 
     tip.save()
