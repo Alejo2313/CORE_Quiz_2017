@@ -308,7 +308,7 @@ exports.randomcheck = function(req, res, next){
         }
         else{
             req.session.score=0;
-            req.session.index =[];
+            req.session.index =[0];
         }
 
         if(score < n){
